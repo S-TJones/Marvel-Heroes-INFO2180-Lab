@@ -1,1 +1,1 @@
-# info2180-lab6
+# AJAX Superheroes Starter Files
