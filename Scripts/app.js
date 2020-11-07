@@ -3,7 +3,7 @@
 var driver = function(){
 
     // Gets the button
-    var btn = document.getElementById("search");
+    var btn = document.getElementById("hero-search-btn");
 
     // Runs function when button is clicked
     btn.onclick = function(){
