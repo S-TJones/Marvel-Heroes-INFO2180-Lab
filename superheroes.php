@@ -73,10 +73,51 @@ $superheroes = [
   ], 
 ];
 
+
+$search = $_GET["search"];
+$search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
+
+$response = "";
+$result = "";
+
+# Checks to see if any value was enter / if it is empty
+if( strlen($search) > 0 ){
+
+    # Represents the string to be displayed if the result doesn't exist
+    $result = "<h5>SUPERHERO NOT FOUND.</h5>";
+
+    foreach($superheroes as $superhero){
+        if( $search === $superhero["alias"] || $search === $superhero["name"] ){
+
+            $alias = "<h3>".$superhero["alias"]."</h3>";
+            $name = "<h4>A.K.A. ".$superhero["name"]."</h4>";
+            $image = '<img src="'.$superhero["image"].' " alt="Picture of hero.">';
+            $bio = "<p>".$superhero["biography"]."</p>";
+
+            $result = $alias.$name.$image.$bio;
+        }
+    }
+}
+
+$response = $result;
+
 ?>
 
+<?php 
+# If the variable has been edited, output it
+if(strlen($response)>0): 
+    echo $response;
+endif; 
+?>
+
+<?php 
+# If the variable has not been edited, output all names in the list
+if( strlen($response) === 0 ): ?>
 <ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
+    <?php foreach ($superheroes as $superhero): ?>
+    <li><?= $superhero['alias']; ?></li>
+    <?php endforeach; ?>
 </ul>
+<?php endif; 
+?>
+
